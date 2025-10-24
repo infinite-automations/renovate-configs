@@ -26,11 +26,11 @@ Extends the default config and enables automerge for major updates only.
 
 ## Usage
 
-To use these configurations in your repository, add the following to your `renovate.json`:
+To use these configurations in your repository, reference them directly from this GitHub repository in your `renovate.json`:
 
 ```json
 {
-  "extends": ["local>infinite-automations/renovate-configs:default"]
+  "extends": ["github>infinite-automations/renovate-configs:default"]
 }
 ```
 
@@ -38,7 +38,15 @@ Or for specific automerge behavior:
 
 ```json
 {
-  "extends": ["local>infinite-automations/renovate-configs:automerge-patch"]
+  "extends": ["github>infinite-automations/renovate-configs:automerge-patch"]
+}
+```
+
+You can also pin to a specific release version:
+
+```json
+{
+  "extends": ["github>infinite-automations/renovate-configs:default#v1.0.0"]
 }
 ```
 
@@ -46,4 +54,5 @@ Or for specific automerge behavior:
 
 This repository includes a GitHub Actions workflow that:
 - Lints code on push and pull requests to main using SuperLinter
-- Automatically releases new versions using Semantic Release with a GitHub App token
+- Automatically creates GitHub releases using Semantic Release with a GitHub App token
+- Configs are directly usable from GitHub releases without npm
