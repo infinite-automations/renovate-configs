@@ -8,22 +8,21 @@ Configurations for renovate
 
 Basic renovate config with:
 - Dependency dashboard enabled
-- Automerge enabled with status checks
-- Platform automerge enabled
-- Automerge strategy: squash
-- Automerge via PR
+- Automerge settings configured (platformAutomerge, strategy: squash, via PR)
+- Status checks: null (no required checks)
+- Automerge behavior controlled by extending configs
 
 ### automerge-patch.json
 
-Extends the default config and enables automerge for patch updates.
+Extends the default config and enables automerge for patch updates only.
 
 ### automerge-minor.json
 
-Extends the default config and enables automerge for minor updates.
+Extends the default config and enables automerge for minor updates only.
 
 ### automerge-major.json
 
-Extends the default config and enables automerge for major updates.
+Extends the default config and enables automerge for major updates only.
 
 ## Usage
 

@@ -1,6 +1,6 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
-  "description": "Extends basic config with automerge for patch updates",
+  "description": "Extends basic config with automerge enabled for patch updates only",
   "extends": [
     "local>infinite-automations/renovate-configs:default"
   ],

@@ -1,12 +1,11 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
-  "description": "Basic renovate config with dependency dashboard and automerge settings",
+  "description": "Basic renovate config with dependency dashboard and automerge settings configured",
   "extends": [
     "config:base"
   ],
   "dependencyDashboard": true,
   "platformAutomerge": true,
-  "automerge": true,
   "automergeType": "pr",
   "automergeStrategy": "squash",
   "requiredStatusChecks": null
