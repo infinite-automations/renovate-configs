@@ -47,7 +47,7 @@ You can also pin to a specific release version:
 
 ```json
 {
-  "extends": ["github>infinite-automations/renovate-configs:default#v0.0.0"]
+  "extends": ["github>infinite-automations/renovate-configs:default#v1.0.0"]
 }
 ```
 
