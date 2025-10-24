@@ -2,11 +2,18 @@
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "description": "Basic renovate config with dependency dashboard and automerge settings configured",
   "extends": [
-    "config:base"
+    "config:best-practices",
+    ":automergePr",
+    ":automergeRequireAllStatusChecks",
+    ":dependencyDashboard",
+    ":disableRateLimiting",
+    ":prConcurrentLimitNone",
+    ":prImmediately",
+    ":rebaseStalePrs",
+    ":semanticCommits",
+    "customManagers:biomeVersions",
+    "workarounds:all"
   ],
-  "dependencyDashboard": true,
   "platformAutomerge": true,
-  "automergeType": "pr",
-  "automergeStrategy": "squash",
-  "requiredStatusChecks": null
+  "automergeStrategy": "squash"
 }
