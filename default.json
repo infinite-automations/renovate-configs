@@ -5,14 +5,12 @@
     "config:best-practices",
     ":automergePr",
     ":automergeRequireAllStatusChecks",
-    ":dependencyDashboard",
     ":disableRateLimiting",
     ":prConcurrentLimitNone",
     ":prImmediately",
     ":rebaseStalePrs",
     ":semanticCommits",
-    "customManagers:biomeVersions",
-    "workarounds:all"
+    "customManagers:biomeVersions"
   ],
   "platformAutomerge": true,
   "automergeStrategy": "squash"
