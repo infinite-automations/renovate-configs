@@ -36,7 +36,6 @@ jobs:
           ENABLE_COMMITLINT_STRICT_MODE: true
           ENFORCE_COMMITLINT_CONFIGURATION_CHECK: true
           FILTER_REGEX_EXCLUDE: (README.md|CHANGELOG.md)
-          IGNORE_GITIGNORED_FILES: true
           VALIDATE_BIOME_FORMAT: false
           VALIDATE_BIOME_LINT: false
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -60,6 +59,7 @@ jobs:
         with:
           app-id: ${{ secrets.APP_ID_SEMREL }}
           private-key: ${{ secrets.APP_KEY_SEMREL }}
+          permission-contents: write
 
       - name: Create Release
         uses: cycjimmy/semantic-release-action@b12c8f6015dc215fe37bc154d4ad456dd3833c90 # v6.0.0
