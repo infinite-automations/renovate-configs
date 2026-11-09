@@ -1,17 +1,24 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
-  "description": "Basic renovate config with dependency dashboard and automerge settings configured",
+  "description": "General Renovate baseline with best practices, security checks, and sensible automerge behavior.",
   "extends": [
     "config:best-practices",
     ":automergePr",
     ":automergeRequireAllStatusChecks",
-    ":disableRateLimiting",
-    ":prConcurrentLimitNone",
-    ":prImmediately",
     ":rebaseStalePrs",
+    "helpers:pinGitHubActionDigestsToSemver",
+    ":enableVulnerabilityAlertsWithAdditionalLabel(security)",
     ":semanticCommits",
+    "github>infinite-automations/renovate-configs:minimumReleaseAge/githubActions",
+    "github>infinite-automations/renovate-configs:minimumReleaseAge/lockFileMaintenance",
+    "github>infinite-automations/renovate-configs:minimumReleaseAge/digest",
+    "github>infinite-automations/renovate-configs:minimumReleaseAge/pin",
+    "github>infinite-automations/renovate-configs:minimumReleaseAge/replacement",
     "customManagers:biomeVersions"
   ],
+  "osvVulnerabilityAlerts": true,
+  "minimumReleaseAge": "3 days",
+  "internalChecksFilter": "strict",
   "platformAutomerge": true,
   "automergeStrategy": "squash"
 }

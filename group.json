@@ -1,0 +1,24 @@
+{
+  "nonMajorByCategory": {
+    "description": "Group minor/patch updates of one manager category into '<category> non-major dependencies'. Use after group:allNonMajor.",
+    "packageRules": [
+      {
+        "description": "Group {{arg0}} non-major updates",
+        "matchCategories": ["{{arg0}}"],
+        "matchUpdateTypes": ["minor", "patch"],
+        "groupName": "{{arg0}} non-major dependencies"
+      }
+    ]
+  },
+  "digestByCategory": {
+    "description": "Group digest/pinDigest updates of one manager category into '<category> digests'. Use after group:allNonMajor.",
+    "packageRules": [
+      {
+        "description": "Group {{arg0}} digest updates",
+        "matchCategories": ["{{arg0}}"],
+        "matchUpdateTypes": ["digest", "pinDigest"],
+        "groupName": "{{arg0}} digests"
+      }
+    ]
+  }
+}

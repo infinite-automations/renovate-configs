@@ -1,0 +1,14 @@
+{
+  "disableAutomerge": {
+    "description": "Use Renovate's native merge instead of platform auto-merge.",
+    "platformAutomerge": false
+  },
+  "squash": {
+    "description": "Use squash strategy for automerge.",
+    "automergeStrategy": "squash"
+  },
+  "rebase": {
+    "description": "Use rebase strategy for automerge.",
+    "automergeStrategy": "rebase"
+  }
+}

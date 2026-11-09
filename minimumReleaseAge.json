@@ -1,0 +1,57 @@
+{
+  "githubActions": {
+    "description": "Minimum release age of 7 days for GitHub Actions.",
+    "packageRules": [
+      {
+        "description": "Minimum release age of 7 days for GitHub Actions",
+        "matchManagers": ["github-actions"],
+        "minimumReleaseAge": "7 days"
+      }
+    ]
+  },
+  "lockFileMaintenance": {
+    "description": "Bypass minimum release age for lock file maintenance because package managers control updates and release timestamps are unavailable.",
+    "packageRules": [
+      {
+        "description": "Bypass minimum release age for lock file maintenance",
+        "matchUpdateTypes": ["lockFileMaintenance"],
+        "minimumReleaseAge": null,
+        "rebaseWhen": "conflicted",
+        "addLabels": ["bypass-minimum-release-age"]
+      }
+    ]
+  },
+  "digest": {
+    "description": "Bypass minimum release age for digest updates because release age is unavailable.",
+    "packageRules": [
+      {
+        "description": "Bypass minimum release age for digest updates",
+        "matchUpdateTypes": ["digest", "pinDigest"],
+        "minimumReleaseAge": null,
+        "addLabels": ["bypass-minimum-release-age"]
+      }
+    ]
+  },
+  "pin": {
+    "description": "Bypass minimum release age for pin updates because release age checks are not available for pinning.",
+    "packageRules": [
+      {
+        "description": "Bypass minimum release age for pin updates",
+        "matchUpdateTypes": ["pin"],
+        "minimumReleaseAge": null,
+        "addLabels": ["bypass-minimum-release-age"]
+      }
+    ]
+  },
+  "replacement": {
+    "description": "Bypass minimum release age for package replacements because release age checks are not available for replacements.",
+    "packageRules": [
+      {
+        "description": "Bypass minimum release age for package replacements",
+        "matchUpdateTypes": ["replacement"],
+        "minimumReleaseAge": null,
+        "addLabels": ["bypass-minimum-release-age"]
+      }
+    ]
+  }
+}

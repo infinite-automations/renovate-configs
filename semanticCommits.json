@@ -1,0 +1,202 @@
+{
+  "all": {
+    "description": "Semantic commit types by update type: patch/digest use fix, minor/major use feat, and pins use chore. Scope: deps.",
+    "packageRules": [
+      {
+        "description": "Pin updates: chore(deps)",
+        "matchUpdateTypes": ["pin", "pinDigest"],
+        "semanticCommitType": "chore",
+        "semanticCommitScope": "deps"
+      },
+      {
+        "description": "Patch and digest updates: fix(deps)",
+        "matchUpdateTypes": ["patch", "digest"],
+        "semanticCommitType": "fix",
+        "semanticCommitScope": "deps"
+      },
+      {
+        "description": "Minor updates: feat(deps)",
+        "matchUpdateTypes": ["minor"],
+        "semanticCommitType": "feat",
+        "semanticCommitScope": "deps"
+      },
+      {
+        "description": "Major updates: feat(deps) with BREAKING CHANGE",
+        "matchUpdateTypes": ["major"],
+        "semanticCommitType": "feat",
+        "semanticCommitScope": "deps",
+        "commitBody": "BREAKING CHANGE: update {{depName}} to {{newValue}}"
+      }
+    ]
+  },
+  "datasource": {
+    "description": "Parameterized semantic commits scoped to a datasource. Usage: semanticCommits/datasource(docker)",
+    "packageRules": [
+      {
+        "description": "{{arg0}} pin updates: chore({{arg0}})",
+        "matchDatasources": ["{{arg0}}"],
+        "matchUpdateTypes": ["pin", "pinDigest"],
+        "semanticCommitType": "chore",
+        "semanticCommitScope": "{{arg0}}"
+      },
+      {
+        "description": "{{arg0}} patch and digest updates: fix({{arg0}})",
+        "matchDatasources": ["{{arg0}}"],
+        "matchUpdateTypes": ["patch", "digest"],
+        "semanticCommitType": "fix",
+        "semanticCommitScope": "{{arg0}}"
+      },
+      {
+        "description": "{{arg0}} minor updates: feat({{arg0}})",
+        "matchDatasources": ["{{arg0}}"],
+        "matchUpdateTypes": ["minor"],
+        "semanticCommitType": "feat",
+        "semanticCommitScope": "{{arg0}}"
+      },
+      {
+        "description": "{{arg0}} major updates: feat({{arg0}}) with BREAKING CHANGE",
+        "matchDatasources": ["{{arg0}}"],
+        "matchUpdateTypes": ["major"],
+        "semanticCommitType": "feat",
+        "semanticCommitScope": "{{arg0}}",
+        "commitBody": "BREAKING CHANGE: update {{depName}} to {{newValue}}"
+      }
+    ]
+  },
+  "manager": {
+    "description": "Parameterized semantic commits scoped to a manager. Usage: semanticCommits/manager(custom.regex, tooling)",
+    "packageRules": [
+      {
+        "description": "{{arg0}} pin updates: chore({{arg1}})",
+        "matchManagers": ["{{arg0}}"],
+        "matchUpdateTypes": ["pin", "pinDigest"],
+        "semanticCommitType": "chore",
+        "semanticCommitScope": "{{arg1}}"
+      },
+      {
+        "description": "{{arg0}} patch and digest updates: fix({{arg1}})",
+        "matchManagers": ["{{arg0}}"],
+        "matchUpdateTypes": ["patch", "digest"],
+        "semanticCommitType": "fix",
+        "semanticCommitScope": "{{arg1}}"
+      },
+      {
+        "description": "{{arg0}} minor updates: feat({{arg1}})",
+        "matchManagers": ["{{arg0}}"],
+        "matchUpdateTypes": ["minor"],
+        "semanticCommitType": "feat",
+        "semanticCommitScope": "{{arg1}}"
+      },
+      {
+        "description": "{{arg0}} major updates: feat({{arg1}}) with BREAKING CHANGE",
+        "matchManagers": ["{{arg0}}"],
+        "matchUpdateTypes": ["major"],
+        "semanticCommitType": "feat",
+        "semanticCommitScope": "{{arg1}}",
+        "commitBody": "BREAKING CHANGE: update {{depName}} to {{newValue}}"
+      }
+    ]
+  },
+  "npmDependencies": {
+    "description": "Runtime npm dependencies use fix(deps) for every update type. Extend after semanticCommits.",
+    "packageRules": [
+      {
+        "description": "Runtime npm dependency updates: fix(deps)",
+        "matchManagers": ["npm"],
+        "matchDepTypes": ["dependencies"],
+        "semanticCommitType": "fix",
+        "semanticCommitScope": "deps"
+      }
+    ]
+  },
+  "devcontainer": {
+    "description": "Keep devcontainer dependencies as chore after extending semanticCommits.",
+    "extends": [":pathSemanticCommitType(**/.devcontainer/**, chore)"]
+  },
+  "tests": {
+    "description": "Keep test-only dependencies as chore after extending semanticCommits.",
+    "extends": [
+      ":pathSemanticCommitType(**/__tests__/**, chore)",
+      ":pathSemanticCommitType(**/test/**, chore)",
+      ":pathSemanticCommitType(**/tests/**, chore)",
+      ":pathSemanticCommitType(**/__fixtures__/**, chore)"
+    ]
+  },
+  "examples": {
+    "description": "Keep example-only dependencies as chore after extending semanticCommits.",
+    "extends": [":pathSemanticCommitType(**/examples/**, chore)"]
+  },
+  "nonProduction": {
+    "description": "Combine the devcontainer, test, and example path policies.",
+    "extends": [
+      "github>infinite-automations/renovate-configs:semanticCommits/devcontainer",
+      "github>infinite-automations/renovate-configs:semanticCommits/tests",
+      "github>infinite-automations/renovate-configs:semanticCommits/examples"
+    ]
+  },
+  "githubActions": {
+    "description": "GitHub Actions updates use chore(deps) for every update type. Custom-manager pins in workflow files are not affected.",
+    "packageRules": [
+      {
+        "description": "GitHub Actions updates: chore(deps)",
+        "matchManagers": ["github-actions"],
+        "semanticCommitType": "chore",
+        "semanticCommitScope": "deps"
+      }
+    ]
+  },
+  "fixDeps": {
+    "description": "Dependency updates use fix(deps); pin and pinDigest updates use chore(deps). Use instead of semanticCommits.",
+    "packageRules": [
+      {
+        "description": "Dependency updates: fix(deps)",
+        "matchUpdateTypes": [
+          "major",
+          "minor",
+          "patch",
+          "digest",
+          "lockFileMaintenance",
+          "rollback",
+          "bump",
+          "replacement"
+        ],
+        "semanticCommitType": "fix",
+        "semanticCommitScope": "deps"
+      },
+      {
+        "description": "Pin updates: chore(deps)",
+        "matchUpdateTypes": ["pin", "pinDigest"],
+        "semanticCommitType": "chore",
+        "semanticCommitScope": "deps"
+      }
+    ]
+  },
+  "repoTooling": {
+    "description": "Keep repository tooling as chore, including GitHub Actions, devcontainers, test/example paths, tooling managers, and development dependencies. Extend after fixDeps or semanticCommits.",
+    "extends": [
+      "github>infinite-automations/renovate-configs:semanticCommits/githubActions",
+      "github>infinite-automations/renovate-configs:semanticCommits/nonProduction"
+    ],
+    "packageRules": [
+      {
+        "description": "Repository tooling managers: chore(deps)",
+        "matchManagers": ["devcontainer", "pre-commit", "mise", "asdf"],
+        "semanticCommitType": "chore",
+        "semanticCommitScope": "deps"
+      },
+      {
+        "description": "Development dependencies: chore(deps)",
+        "matchDepTypes": ["devDependencies", "dev", "dev-dependencies"],
+        "semanticCommitType": "chore",
+        "semanticCommitScope": "deps"
+      }
+    ]
+  },
+  "fixDepsChoreTooling": {
+    "description": "Use fix(deps) for deployed dependencies and chore(deps) for repository tooling and pins.",
+    "extends": [
+      "github>infinite-automations/renovate-configs:semanticCommits/fixDeps",
+      "github>infinite-automations/renovate-configs:semanticCommits/repoTooling"
+    ]
+  }
+}

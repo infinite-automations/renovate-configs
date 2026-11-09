@@ -1,0 +1,22 @@
+{
+  "semver": {
+    "description": "Pin a package to a semver range using ~. Usage: pin/semver(package-name, 1)",
+    "packageRules": [
+      {
+        "description": "Pin {{arg0}} to ~{{arg1}}",
+        "matchPackageNames": ["{{arg0}}"],
+        "allowedVersions": "~{{arg1}}"
+      }
+    ]
+  },
+  "universal": {
+    "description": "Pin a package to a version prefix for any datasource. Usage: pin/universal(package-name, 1.2)",
+    "packageRules": [
+      {
+        "description": "Pin {{arg0}} to version {{arg1}}",
+        "matchPackageNames": ["{{arg0}}"],
+        "allowedVersions": "/^{{arg1}}(\\.|$|-)/"
+      }
+    ]
+  }
+}
