@@ -1,3 +1,10 @@
+# [1.1.0](https://github.com/infinite-automations/renovate-configs/compare/v1.0.1...v1.1.0) (2026-11-09)
+
+
+### Features
+
+* add generic Renovate presets and regression tests ([#35](https://github.com/infinite-automations/renovate-configs/issues/35)) ([6b83d87](https://github.com/infinite-automations/renovate-configs/commit/6b83d877e6e0e6457f16cb2d747dec3961d10783))
+
 ## [1.0.1](https://github.com/infinite-automations/renovate-configs/compare/v1.0.0...v1.0.1) (2026-09-15)
 
 
