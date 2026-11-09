@@ -1,0 +1,32 @@
+{
+  "regexManager": {
+    "description": "Generic regex-based custom manager building block. Uses captured versioning, then captured defaultVersioning, otherwise semver-coerced. Usage: customManagers/regexManager(filePatterns, matchString)",
+    "customManagers": [
+      {
+        "customType": "regex",
+        "managerFilePatterns": ["{{arg0}}"],
+        "matchStrings": ["{{arg1}}"],
+        "versioningTemplate": "{{#if versioning}}{{{versioning}}}{{else}}{{#if defaultVersioning}}{{{defaultVersioning}}}{{else}}semver-coerced{{/if}}{{/if}}"
+      }
+    ]
+  },
+  "commentManager": {
+    "description": "Tracks annotated YAML and shell version values, including optional quotes and sha256 digests. Add 'format=docker-image' immediately after depName for full image references, followed by optional depType, registryUrl, extractVersion and versioning fields. Image mode defaults to Docker versioning; explicit versioning overrides it.",
+    "extends": [
+      "github>infinite-automations/renovate-configs:customManagers/regexManager({{arg0}}, #\\s*renovate:\\s*datasource=(?<datasource>\\S+)\\s+depName=(?<depName>\\S+)(?:\\s+registryUrl=(?<registryUrl>\\S+))?(?:\\s+extractVersion=(?<extractVersion>\\S+))?(?:\\s+versioning=(?<versioning>\\S+))?\\s*\\n[^\\n]*?[:=][ \\t]*[\"']?(?<currentValue>[^\\s\"']+?)(?:@(?<currentDigest>sha256:[a-f0-9]+))?[\"']?[ \\t]*(?:\\r?\\n|$))",
+      "github>infinite-automations/renovate-configs:customManagers/regexManager({{arg0}}, #\\s*renovate:[ \\t]+datasource=(?<datasource>[^\\s]+)[ \\t]+depName=(?<depName>[^\\s]+)[ \\t]+format=(?<defaultVersioning>docker)-image(?:[ \\t]+depType=(?<depType>[^\\s]+))?(?:[ \\t]+registryUrl=(?<registryUrl>[^\\s]+))?(?:[ \\t]+extractVersion=(?<extractVersion>[^\\s]+))?(?:[ \\t]+versioning=(?<versioning>[^\\s]+))?[ \\t]*\\r?\\n[ \\t]*(?:ARG[ \\t]+|ENV[ \\t]+)?[A-Za-z_][A-Za-z0-9_-]*[ \\t]*[:=][ \\t]*[\"']?[^\\s\"'@]+:(?<currentValue>[^\\s\"'@:/]+)(?:@(?<currentDigest>sha256:[a-f0-9]{64}))?[\"']?[ \\t]*(?:\\r?\\n|$))"
+    ]
+  },
+  "workflowVersionPin": {
+    "description": "Version pins in GitHub Actions workflow files, marked with '# renovate: datasource=... depName=...' on the line above the pinned value.",
+    "extends": [
+      "github>infinite-automations/renovate-configs:customManagers/commentManager(/^\\.github/workflows/.*\\.ya?ml$/)"
+    ]
+  },
+  "dockerfileArgVersion": {
+    "description": "Tracks Dockerfile ARG values annotated with '# renovate: datasource=... depName=...' (optionally extractVersion and/or versioning).",
+    "extends": [
+      "github>infinite-automations/renovate-configs:customManagers/commentManager(/(^|/|\\.)([Dd]ocker|[Cc]ontainer)file([^/]*)?$/)"
+    ]
+  }
+}

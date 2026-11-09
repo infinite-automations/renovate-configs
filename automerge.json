@@ -1,0 +1,43 @@
+{
+  "vulnerabilities": {
+    "description": "Automerge vulnerability/security PRs. Requires the Renovate bot to be able to merge.",
+    "vulnerabilityAlerts": {
+      "automerge": true
+    }
+  },
+  "gitHubActions": {
+    "description": "Automerge GitHub Actions updates.",
+    "packageRules": [
+      {
+        "description": "Automerge GitHub Actions",
+        "matchManagers": ["github-actions"],
+        "automerge": true
+      }
+    ]
+  },
+  "disableBypassExternal": {
+    "description": "Disable automerge for updates that bypass minimum release age (lockFileMaintenance, digest, pin, replacement).",
+    "packageRules": [
+      {
+        "description": "Disable automerge for lock file maintenance (bypasses minimum release age)",
+        "matchUpdateTypes": ["lockFileMaintenance"],
+        "automerge": false
+      },
+      {
+        "description": "Disable automerge for digest updates (bypasses minimum release age)",
+        "matchUpdateTypes": ["digest", "pinDigest"],
+        "automerge": false
+      },
+      {
+        "description": "Disable automerge for pin updates (bypasses minimum release age)",
+        "matchUpdateTypes": ["pin"],
+        "automerge": false
+      },
+      {
+        "description": "Disable automerge for replacements (bypasses minimum release age)",
+        "matchUpdateTypes": ["replacement"],
+        "automerge": false
+      }
+    ]
+  }
+}
