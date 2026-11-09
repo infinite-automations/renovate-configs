@@ -1,3 +1,10 @@
+# [1.2.0](https://github.com/infinite-automations/renovate-configs/compare/v1.1.0...v1.2.0) (2026-11-09)
+
+
+### Features
+
+* **custom-managers:** track annotated npm package pins ([231d4d7](https://github.com/infinite-automations/renovate-configs/commit/231d4d70e563473beb2eb35b3089f6bb8cffcd4a))
+
 # [1.1.0](https://github.com/infinite-automations/renovate-configs/compare/v1.0.1...v1.1.0) (2026-11-09)
 
 
