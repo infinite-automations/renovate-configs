@@ -13,6 +13,7 @@ function regexFrom(reference) {
 
 const versionPattern = regexFrom(presets.commentManager.extends[0]);
 const imagePattern = regexFrom(presets.commentManager.extends[1]);
+const npmPattern = regexFrom(presets.commentManager.extends[2]);
 const digest = `sha256:${"a".repeat(64)}`;
 
 contract("customManagers/regexManager", () => {
@@ -59,6 +60,56 @@ test("commentManager does not consume a following annotation", () => {
     matches.map((match) => match.groups.depName),
     ["first", "second"],
   );
+});
+
+test("npm annotations extract scoped and unscoped package versions", () => {
+  for (const name of ["semantic-release-major-tag", "@semantic-release/git"]) {
+    for (const quote of ["", "'", '"']) {
+      for (const separator of ["\n", "\r\n"]) {
+        for (const ending of ["\n", ""]) {
+          const source = `  # renovate: datasource=npm depName=${name}${separator}  ${quote}${name}@1.2.3${quote}${ending}`;
+          const match = new RegExp(npmPattern).exec(source);
+          assert.ok(match, JSON.stringify(source));
+          assert.equal(match.groups.datasource, "npm");
+          assert.equal(match.groups.depName, name);
+          assert.equal(match.groups.currentValue, "1.2.3");
+        }
+      }
+    }
+  }
+});
+
+test("npm matching requires annotations and leaves other formats alone", () => {
+  for (const source of [
+    "semantic-release-major-tag@0.3.2\n",
+    "uses: example/action@1.2.3\n",
+    "# renovate: datasource=docker depName=example/image\nexample/image@1.2.3\n",
+    "# renovate: datasource=npm depName=example\nVERSION=1.2.3\n",
+  ]) {
+    assert.equal(new RegExp(npmPattern).exec(source), null, source);
+  }
+  const source =
+    "# renovate: datasource=npm depName=first\nfirst@1.2.3\n# renovate: datasource=npm depName=second\nsecond@4.5.6\n";
+  assert.deepEqual(
+    [...source.matchAll(new RegExp(npmPattern, "g"))].map(
+      ({ groups }) => [groups.depName, groups.currentValue],
+    ),
+    [
+      ["first", "1.2.3"],
+      ["second", "4.5.6"],
+    ],
+  );
+});
+
+test("npm annotations support optional registry and versioning fields", () => {
+  const source =
+    "# renovate: datasource=npm depName=@example/pkg registryUrl=https://registry.npmjs.org extractVersion=^v(?<version>.*)$ versioning=semver\n@example/pkg@v1.2.3\n";
+  const match = new RegExp(npmPattern).exec(source);
+  assert.ok(match);
+  assert.equal(match.groups.registryUrl, "https://registry.npmjs.org");
+  assert.equal(match.groups.extractVersion, "^v(?<version>.*)$");
+  assert.equal(match.groups.versioning, "semver");
+  assert.equal(match.groups.currentValue, "v1.2.3");
 });
 
 test("docker image comments extract image tags, digests, and registry ports", () => {
